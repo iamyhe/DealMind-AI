@@ -1,0 +1,107 @@
+{
+  "scope": "Raw CSV-to-Parquet chunked conversion and row-level audit only (session & duplicate audits run separately).",
+  "total_raw_rows": 20692840,
+  "monthly_summary": [
+    {
+      "file": "2019-Oct.csv",
+      "rows": 4102283,
+      "min_time": "2019-10-01 00:00:00+00:00",
+      "max_time": "2019-10-31 23:59:54+00:00",
+      "invalid_time_rows": 0,
+      "parquet_size_mb": 97.17
+    },
+    {
+      "file": "2019-Nov.csv",
+      "rows": 4635837,
+      "min_time": "2019-11-01 00:00:02+00:00",
+      "max_time": "2019-11-30 23:59:58+00:00",
+      "invalid_time_rows": 0,
+      "parquet_size_mb": 107.68
+    },
+    {
+      "file": "2019-Dec.csv",
+      "rows": 3533286,
+      "min_time": "2019-12-01 00:00:00+00:00",
+      "max_time": "2019-12-31 23:59:57+00:00",
+      "invalid_time_rows": 0,
+      "parquet_size_mb": 87.27
+    },
+    {
+      "file": "2020-Jan.csv",
+      "rows": 4264752,
+      "min_time": "2020-01-01 00:00:00+00:00",
+      "max_time": "2020-01-31 23:59:58+00:00",
+      "invalid_time_rows": 0,
+      "parquet_size_mb": 103.52
+    },
+    {
+      "file": "2020-Feb.csv",
+      "rows": 4156682,
+      "min_time": "2020-02-01 00:00:01+00:00",
+      "max_time": "2020-02-29 23:59:59+00:00",
+      "invalid_time_rows": 0,
+      "parquet_size_mb": 100.17
+    }
+  ],
+  "event_type_counts": {
+    "view": 9657821,
+    "cart": 5768333,
+    "remove_from_cart": 3979679,
+    "purchase": 1287007
+  },
+  "missing_values": {
+    "event_time": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "event_type": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "product_id": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "category_id": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "category_code": {
+      "count": 20339246,
+      "pct": 98.2912
+    },
+    "brand": {
+      "count": 8757117,
+      "pct": 42.3196
+    },
+    "price": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "user_id": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "user_session": {
+      "count": 4598,
+      "pct": 0.0222
+    }
+  },
+  "price_audit": {
+    "negative": 131,
+    "zero": 104157,
+    "negative_by_event_type": {
+      "purchase": 126,
+      "view": 2,
+      "remove_from_cart": 3
+    },
+    "zero_by_event_type": {
+      "view": 30490,
+      "cart": 49370,
+      "remove_from_cart": 24296,
+      "purchase": 1
+    },
+    "min": -79.37,
+    "max": 327.78
+  }
+}

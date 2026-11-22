@@ -1,0 +1,90 @@
+{
+  "exact_duplicates": {
+    "total_extra_duplicate_rows": 1109098,
+    "by_event_type": {
+      "remove_from_cart": {
+        "extra_duplicate_rows": 991820,
+        "duplicated_groups": 953388
+      },
+      "cart": {
+        "extra_duplicate_rows": 115342,
+        "duplicated_groups": 90502
+      },
+      "view": {
+        "extra_duplicate_rows": 1031,
+        "duplicated_groups": 969
+      },
+      "purchase": {
+        "extra_duplicate_rows": 905,
+        "duplicated_groups": 903
+      }
+    }
+  },
+  "unique_entities_raw": {
+    "products": 54571,
+    "category_ids": 525,
+    "brands": 273,
+    "users": 1639358,
+    "valid_sessions": 4535941,
+    "sessions_shared_by_multiple_users": 272
+  },
+  "clean_session_funnel_price_gt_0": {
+    "total_valid_sessions": 4520284,
+    "sessions_with_view": 4265922,
+    "sessions_with_cart": 983953,
+    "sessions_with_purchase": 155617,
+    "sessions_with_view_and_purchase": 116379,
+    "sessions_with_purchase_without_view": 39238,
+    "sessions_with_cart_without_purchase": 857691,
+    "sessions_with_cart_and_purchase": 126262,
+    "overall_purchase_rate_pct": 3.44,
+    "view_to_purchase_rate_pct": 2.73,
+    "session_cart_abandonment_rate_pct": 87.17,
+    "historical_aov_recorded_units": 40.82
+  },
+  "purchase_timing_relative_to_first_cart": {
+    "purchase_strictly_after_first_cart": 125428,
+    "purchase_same_second_as_first_cart": 8,
+    "purchase_only_before_first_cart": 826
+  },
+  "boundary_sessions": {
+    "first_day_sessions_2019_10_01": 29289,
+    "last_day_sessions_2020_02_29": 32018,
+    "cross_train_val_boundary": 7067,
+    "cross_val_test_boundary": 10438
+  },
+  "temporal_split_preview": [
+    {
+      "split": "excluded_boundary",
+      "total_sessions": 72815,
+      "cart_sessions": 23325,
+      "positive_intent_sessions": 3721,
+      "positive_rate_pct": 15.95,
+      "purchase_sessions": 4193
+    },
+    {
+      "split": "test (Feb 1 - Feb 28)",
+      "total_sessions": 885959,
+      "cart_sessions": 177996,
+      "positive_intent_sessions": 22217,
+      "positive_rate_pct": 12.48,
+      "purchase_sessions": 27993
+    },
+    {
+      "split": "train (Oct 2 - Dec 31)",
+      "total_sessions": 2605528,
+      "cart_sessions": 590414,
+      "positive_intent_sessions": 74249,
+      "positive_rate_pct": 12.58,
+      "purchase_sessions": 91978
+    },
+    {
+      "split": "val (Jan)",
+      "total_sessions": 955982,
+      "cart_sessions": 192218,
+      "positive_intent_sessions": 25241,
+      "positive_rate_pct": 13.13,
+      "purchase_sessions": 31453
+    }
+  ]
+}
