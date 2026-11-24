@@ -1,0 +1,29 @@
+column,dtype,missing_pct_percent,n_unique,example
+user_session,str,0,590754,a7d4a2b0-eb94-31da-777e-bc656c25c223
+user_id,str,0,264008,531443237
+session_start,"datetime64[ns, UTC]",0,557296,2019-12-25 19:35:37+00:00
+first_cart_time,"datetime64[ns, UTC]",0,554435,2019-12-25 19:35:37+00:00
+split,str,0,1,train
+cart_product_ids_at_first_cart_sec,str,0,38724,5870668
+cart_category_ids_at_first_cart_sec,str,0,556,1.48758E+18
+seconds_to_first_cart,int64,0,11990,0
+views_before_cart,int64,0,92,0
+has_view_before_cart,int32,0,2,0
+unique_products_viewed_before_cart,int64,0,76,0
+unique_categories_viewed_before_cart,int64,0,30,0
+unique_brands_viewed_before_cart,int64,0,20,0
+removes_before_cart,int64,0,227,0
+unique_products_removed_before_cart,int64,0,154,0
+cart_events_at_first_cart_sec,int64,0,12,1
+unique_products_carted_at_first_cart_sec,int64,0,7,1
+has_multi_products_at_first_cart_sec,int32,0,2,0
+avg_cart_price_at_first_cart_sec,float64,0.13,2467,1.73
+avg_viewed_price_before_cart,float64,39.43,29651,
+max_viewed_price_before_cart,float64,39.43,2380,
+price_ratio_cart_to_view,float64,39.45,26431,
+any_cart_brand_at_first_cart_sec,int32,0,2,1
+hour_of_day_utc,int32,0,24,19
+day_of_week_utc,int32,0,7,3
+user_prior_sessions,int64,0,1092,48
+user_prior_purchase_sessions,float64,0,83,2
+target_purchased_after_cart,int32,0,2,0
