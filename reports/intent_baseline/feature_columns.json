@@ -1,0 +1,25 @@
+{
+  "features": [
+    "seconds_to_first_cart",
+    "views_before_cart",
+    "has_view_before_cart",
+    "unique_products_viewed_before_cart",
+    "unique_categories_viewed_before_cart",
+    "unique_brands_viewed_before_cart",
+    "removes_before_cart",
+    "unique_products_removed_before_cart",
+    "cart_events_at_first_cart_sec",
+    "unique_products_carted_at_first_cart_sec",
+    "has_multi_products_at_first_cart_sec",
+    "avg_cart_price_at_first_cart_sec",
+    "avg_viewed_price_before_cart",
+    "max_viewed_price_before_cart",
+    "price_ratio_cart_to_view",
+    "any_cart_brand_at_first_cart_sec",
+    "hour_of_day_utc",
+    "day_of_week_utc",
+    "user_prior_sessions",
+    "user_prior_purchase_sessions"
+  ],
+  "target": "target_purchased_after_cart"
+}
