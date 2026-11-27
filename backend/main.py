@@ -6,10 +6,10 @@ import math
 import os
 import re
 import sqlite3
-from contextlib import contextmanager
+from contextlib import asynccontextmanager, contextmanager
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Iterator, Literal
+from typing import Any, AsyncIterator, Iterator, Literal
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.encoders import jsonable_encoder
@@ -207,7 +207,23 @@ EXCLUDED_SESSION_FIELDS = {
     "target_purchased_after_cart",
 }
 
-app = FastAPI(title="DealMind AI API", version="0.1.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    """Load and validate the cached prediction model before serving traffic."""
+    try:
+        model = load_model()
+        _validate_model_feature_contract(model)
+    except HTTPException as exc:
+        cause = exc.__cause__
+        reason = f" ({type(cause).__name__})" if cause is not None else ""
+        raise RuntimeError(
+            f"Prediction model failed at startup{reason}: {exc.detail}"
+        ) from exc
+    logger.info("Prediction model loaded and validated at startup")
+    yield
+
+
+app = FastAPI(title="DealMind AI API", version="0.1.0", lifespan=lifespan)
 
 # Local-demo browser convenience only. This is not authentication or API
 # protection; it does not change server binding or allow any production origin.
@@ -489,7 +505,7 @@ def _import_pandas() -> Any:
 
 @lru_cache(maxsize=1)
 def load_model() -> Any:
-    """Load and cache the full pipeline once, on first prediction request."""
+    """Load and cache the full pipeline once, at server startup."""
     if not MODEL_PATH.is_file():
         logger.warning("Prediction model artifact is unavailable")
         raise _model_unavailable()

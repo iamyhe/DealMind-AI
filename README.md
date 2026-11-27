@@ -12,6 +12,27 @@ E-commerce intelligence system built for the DEPI Graduation Project (`NHA-5-158
 - `scripts/02b_inspect_anomalies.py` — Inspection of negative-price records and same-second first-cart events
 - `scripts/03_build_master_datasets.py` — Builds leak-free intent datasets, purchase baskets, RFM table, and SQLite app DB
 
+## Backend Setup
+
+Requires Python 3.11+ (verified with Python 3.12.10). No environment variables are required; the optional `DEALMIND_PREDICTION_THRESHOLD` can override the provisional prediction threshold.
+
+From the repository root:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r backend/requirements.txt
+python -m uvicorn backend.main:app --reload
+```
+
+Run the backend tests from the repository root:
+
+```powershell
+python -m pytest backend/tests -p no:cacheprovider
+```
+
+If PowerShell blocks `Activate.ps1`, activate with `.\.venv\Scripts\activate.bat` from `cmd.exe` instead.
+
 ## Dataset & Preparation Rules
 
 Source: **eCommerce Events History in Cosmetics Shop** (Oct 2019 – Feb 2020, 5 monthly files, 20,692,840 raw events).

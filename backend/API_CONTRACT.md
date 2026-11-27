@@ -1,6 +1,6 @@
 # DealMind AI — API Integration Contract
 
-**Status:** Draft — pending Frontend decisions; ML contract confirmed.\
+**Status:** Merged backend contract — current source of truth for the implemented API.\
 **Backend:** FastAPI\
 **API prefix:** `/api`\
 **Database:** `data/dealmind.db` (read-only access from the API)\
