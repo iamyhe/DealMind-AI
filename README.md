@@ -14,7 +14,7 @@ E-commerce intelligence system built for the DEPI Graduation Project (`NHA-5-158
 
 ## Backend Setup
 
-Requires Python 3.11+ (verified with Python 3.12.10). No environment variables are required; the optional `DEALMIND_PREDICTION_THRESHOLD` can override the provisional prediction threshold.
+Tested with Python 3.11+ (verified 3.12.10). No environment variables are required; the optional `DEALMIND_PREDICTION_THRESHOLD` can override the provisional prediction threshold.
 
 From the repository root:
 
