@@ -1,0 +1,151 @@
+{
+  "selected": "log1p",
+  "primary_metric": "pr_auc",
+  "results": {
+    "no_class_weight": {
+      "train_pr_auc": 0.1771444385654263,
+      "pr_auc": 0.18535240801984962,
+      "roc_auc": 0.6001566028320717,
+      "at_0.5": {
+        "threshold": 0.5,
+        "precision": 0.38924731182795697,
+        "recall": 0.007171156893819334,
+        "f1": 0.014082863256175842
+      },
+      "at_best_f1": {
+        "threshold": 0.12125118254693618,
+        "precision": 0.15745660803412218,
+        "recall": 0.6961965134706815,
+        "f1": 0.25682736646716214
+      }
+    },
+    "balanced": {
+      "train_pr_auc": 0.17536969853722065,
+      "pr_auc": 0.18130717250458223,
+      "roc_auc": 0.5957507615746342,
+      "at_0.5": {
+        "threshold": 0.5,
+        "precision": 0.16042307907549389,
+        "recall": 0.5678684627575278,
+        "f1": 0.25017236112929264
+      },
+      "at_best_f1": {
+        "threshold": 0.47825011204654866,
+        "precision": 0.15412813463300842,
+        "recall": 0.7329635499207607,
+        "f1": 0.2546981482756247
+      }
+    },
+    "log1p": {
+      "train_pr_auc": 0.1852335631346666,
+      "pr_auc": 0.19089595580894397,
+      "roc_auc": 0.610742264564502,
+      "at_0.5": {
+        "threshold": 0.5,
+        "precision": 0.5185185185185185,
+        "recall": 0.0011093502377179081,
+        "f1": 0.0022139637858780738
+      },
+      "at_best_f1": {
+        "threshold": 0.12672868322902756,
+        "precision": 0.1662563172217183,
+        "recall": 0.6099841521394612,
+        "f1": 0.2612945928515665
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "feature": "user_prior_sessions",
+      "coefficient": -0.3344890128486974
+    },
+    {
+      "feature": "views_before_cart",
+      "coefficient": 0.328229695645981
+    },
+    {
+      "feature": "has_view_before_cart",
+      "coefficient": -0.3031096310609897
+    },
+    {
+      "feature": "user_prior_purchase_sessions",
+      "coefficient": 0.2937429292095386
+    },
+    {
+      "feature": "seconds_to_first_cart",
+      "coefficient": 0.18447298712835958
+    },
+    {
+      "feature": "avg_viewed_price_before_cart",
+      "coefficient": 0.17995795995972352
+    },
+    {
+      "feature": "unique_products_viewed_before_cart",
+      "coefficient": -0.15791566181604644
+    },
+    {
+      "feature": "unique_products_removed_before_cart",
+      "coefficient": 0.12344149616900109
+    },
+    {
+      "feature": "max_viewed_price_before_cart",
+      "coefficient": -0.12135620054167802
+    },
+    {
+      "feature": "avg_cart_price_at_first_cart_sec",
+      "coefficient": 0.1011676930059513
+    },
+    {
+      "feature": "day_of_week_utc",
+      "coefficient": 0.0727120873723046
+    },
+    {
+      "feature": "cart_events_at_first_cart_sec",
+      "coefficient": 0.059813098449535695
+    },
+    {
+      "feature": "unique_categories_viewed_before_cart",
+      "coefficient": -0.04220547546513164
+    },
+    {
+      "feature": "unique_products_carted_at_first_cart_sec",
+      "coefficient": -0.033356622156592956
+    },
+    {
+      "feature": "removes_before_cart",
+      "coefficient": -0.03249212818708845
+    },
+    {
+      "feature": "hour_of_day_utc",
+      "coefficient": 0.032449686664348186
+    },
+    {
+      "feature": "any_cart_brand_at_first_cart_sec",
+      "coefficient": 0.014873315991870471
+    },
+    {
+      "feature": "unique_brands_viewed_before_cart",
+      "coefficient": -0.014324816520136572
+    },
+    {
+      "feature": "price_ratio_cart_to_view",
+      "coefficient": 0.004393664305952745
+    },
+    {
+      "feature": "has_multi_products_at_first_cart_sec",
+      "coefficient": 0.0035079289660950377
+    }
+  ],
+  "rows": {
+    "train": 590754,
+    "val": 192366
+  },
+  "intercept": -2.0060297445278246,
+  "sklearn_version": "1.6.1",
+  "assumptions": [
+    "Median imputation and scaling fitted on train only",
+    "log1p applied before scaling",
+    "Hour and weekday treated as linear numbers",
+    "Score is not calibrated; threshold is not final"
+  ]
+}
