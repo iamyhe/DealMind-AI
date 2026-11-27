@@ -5,6 +5,7 @@ import math
 import re
 
 import pytest
+from fastapi.testclient import TestClient
 
 import main as backend_main
 from conftest import FORBIDDEN_FIELDS
@@ -1718,3 +1719,51 @@ def test_existing_endpoints_still_work_with_prediction_enabled(client):
     assert client.get("/api/summary").status_code == 200
     assert client.get("/api/replay-sessions", params={"size": 1}).json()["total"] == 100
     assert client.get("/api/reports/cart-behavior").status_code == 200
+
+
+def test_startup_loads_and_validates_model_before_first_request(monkeypatch):
+    estimator = FakeEstimator()
+    fake_joblib = _patch_artifact(monkeypatch, estimator)
+
+    with TestClient(backend_main.app) as startup_client:
+        assert fake_joblib.load_calls == 1
+        assert backend_main.load_model() is estimator
+        assert fake_joblib.load_calls == 1
+
+        response = _post_predict(startup_client, VALID_FEATURES)
+
+    assert response.status_code == 200
+    assert response.json() == {"model_score": 0.83, "predicted_class": 1}
+    assert fake_joblib.load_calls == 1
+    assert len(estimator.calls) == 1
+
+
+def test_startup_model_is_reused_for_every_prediction(monkeypatch):
+    estimator = FakeEstimator()
+    fake_joblib = _patch_artifact(monkeypatch, estimator)
+
+    with TestClient(backend_main.app) as startup_client:
+        responses = [_post_predict(startup_client, VALID_FEATURES) for _ in range(3)]
+
+    assert [response.status_code for response in responses] == [200, 200, 200]
+    assert fake_joblib.load_calls == 1
+    assert len(estimator.calls) == 3
+
+
+@pytest.mark.parametrize(
+    "model, exists, load_error",
+    [
+        (None, False, None),
+        (None, True, RuntimeError("corrupt artifact")),
+        (FakeEstimator(feature_names=["wrong_feature_order"]), True, None),
+    ],
+    ids=["missing_artifact", "corrupt_artifact", "feature_contract_mismatch"],
+)
+def test_startup_fails_explicitly_when_model_is_unusable(
+    monkeypatch, model, exists, load_error
+):
+    _patch_artifact(monkeypatch, model, exists=exists, load_error=load_error)
+
+    with pytest.raises(RuntimeError, match="startup"):
+        with TestClient(backend_main.app):
+            pass
