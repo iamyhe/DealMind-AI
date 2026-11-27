@@ -10,8 +10,8 @@ import {
   formatDuration,
   formatEventType,
   formatInt,
+  formatNumber,
   formatOffset,
-  formatPct,
   formatPriceUnits,
   formatRatio,
   formatUtcClock,
@@ -138,7 +138,7 @@ async function loadDetail(id) {
     safeEvents.value = res.events
     detailLoading.value = false
 
-    // Score via POST /api/predict (non-blocking; gracefully handles HTTP 501)
+    // Score via POST /api/predict (non-blocking; gracefully handles unavailable predictions)
     predictLoading.value = true
     const pred = await predict(res.session)
     if (seq !== detailSeq) return
@@ -224,6 +224,16 @@ function eventBadgeClass(ev) {
 const predictionAgreement = computed(() => {
   if (!revealed.value || prediction.value?.status !== 'ok' || prediction.value.prediction === null) return null
   return prediction.value.prediction === actualOutcome.value ? 'match' : 'mismatch'
+})
+
+const predictionMessage = computed(() => {
+  if (prediction.value?.prediction === 1) {
+    return 'Class 1 indicates higher purchase likelihood; it does not guarantee a purchase.'
+  }
+  if (prediction.value?.prediction === 0) {
+    return 'Class 0 indicates lower purchase likelihood / potential abandonment risk; it is not confirmed abandonment.'
+  }
+  return 'Model score is shown without a predicted class.'
 })
 
 async function initRoute() {
@@ -537,9 +547,9 @@ watch(
 
           <!-- Bottom Two-Column Decision & Verification Cards -->
           <div class="decision-grid">
-            <!-- Left: Predicted intent (POST /api/predict) -->
+            <!-- Left: Model prediction (POST /api/predict) -->
             <article class="card decision-card">
-              <h2 class="card-title">Predicted intent</h2>
+              <h2 class="card-title">Model prediction</h2>
 
               <div v-if="predictLoading" class="pending-box">
                 <div class="skeleton" style="width: 44px; height: 44px; border-radius: 10px" />
@@ -560,10 +570,9 @@ watch(
                   </svg>
                 </div>
                 <div>
-                  <div class="pending-title">Model integration pending</div>
+                  <div class="pending-title">Prediction pending</div>
                   <p class="pending-desc">
-                    HTTP 501 · No prediction is fabricated until the trained model pipeline is connected to
-                    <span class="mono">/api/predict</span>.
+                    No score is shown until the model returns one; nothing is fabricated.
                   </p>
                 </div>
               </div>
@@ -580,33 +589,26 @@ watch(
 
               <div v-else-if="prediction?.status === 'ok'" class="pred-ready">
                 <div class="pred-top">
-                  <span class="badge" :class="prediction.prediction === 1 ? 'badge-green' : 'badge-orange'">
-                    {{ prediction.prediction === 1 ? 'Likely Purchase' : 'High Abandonment Risk' }}
+                  <span
+                    v-if="prediction.prediction !== null && prediction.prediction !== undefined"
+                    class="badge"
+                    :class="prediction.prediction === 1 ? 'badge-green' : 'badge-orange'"
+                  >
+                    Predicted class {{ prediction.prediction }}
                   </span>
+                  <span v-else class="muted">Predicted class unavailable</span>
                   <span v-if="prediction.modelVersion" class="muted mono">{{ prediction.modelVersion }}</span>
                 </div>
-                <div v-if="prediction.probability !== null" class="prob-block">
+                <div
+                  v-if="prediction.modelScore !== null && prediction.modelScore !== undefined"
+                  class="prob-block"
+                >
                   <div class="prob-row">
-                    <span>Purchase probability</span>
-                    <strong class="num">{{ formatPct(prediction.probability * 100, 1) }}</strong>
-                  </div>
-                  <div class="prob-track">
-                    <div class="prob-fill" :style="{ width: `${Math.min(100, Math.max(0, prediction.probability * 100))}%` }" />
-                    <div
-                      v-if="prediction.threshold !== null"
-                      class="prob-thresh"
-                      :style="{ left: `${Math.min(100, Math.max(0, prediction.threshold * 100))}%` }"
-                      :title="`Decision threshold: ${prediction.threshold}`"
-                    />
+                    <span>Model Score (Uncalibrated)</span>
+                    <strong class="num">{{ formatNumber(prediction.modelScore, 4) }}</strong>
                   </div>
                 </div>
-                <p class="pending-desc">
-                  {{
-                    prediction.prediction === 1
-                      ? 'Strong purchase signal at first cart — candidate for smooth checkout flow.'
-                      : 'Elevated abandonment risk — candidate for timely cart-retention incentive.'
-                  }}
-                </p>
+                <p class="pending-desc">{{ predictionMessage }}</p>
               </div>
             </article>
 
@@ -1184,26 +1186,6 @@ watch(
   color: var(--text-2);
   margin-bottom: 6px;
 }
-.prob-track {
-  position: relative;
-  height: 8px;
-  border-radius: 999px;
-  background: #172031;
-  overflow: visible;
-}
-.prob-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--browse), var(--cart));
-}
-.prob-thresh {
-  position: absolute;
-  top: -3px;
-  bottom: -3px;
-  width: 2px;
-  background: var(--outcome);
-}
-
 .outcome-locked {
   display: flex;
   flex-direction: column;

@@ -208,21 +208,30 @@ export function buildPredictPayload(session) {
 }
 
 function normalizePrediction(data) {
+  // Backend contract: raw `model_score` + `predicted_class`. Keep `modelScore`
+  // separate from the legacy `probability` field used by existing mock consumers.
   const prob = data?.probability ?? data?.purchase_probability ?? data?.score ?? null
   const cls = data?.prediction ?? data?.label ?? data?.predicted_class ?? null
+  const rawModelScore = data?.model_score ?? null
   const probability = prob === null || prob === undefined || Number.isNaN(Number(prob)) ? null : Number(prob)
+  const modelScore =
+    rawModelScore === null || rawModelScore === undefined || Number.isNaN(Number(rawModelScore))
+      ? null
+      : Number(rawModelScore)
   const threshold = data?.threshold === undefined || data?.threshold === null ? null : Number(data.threshold)
   let prediction = cls === null || cls === undefined ? null : Number(cls)
   if (prediction !== 0 && prediction !== 1) prediction = null
   if (prediction === null && probability !== null && threshold !== null) prediction = probability >= threshold ? 1 : 0
+  const hasResult = modelScore !== null || probability !== null || prediction !== null
   return {
-    status: probability === null && prediction === null ? 'pending' : 'ok',
+    status: hasResult ? 'ok' : 'pending',
     httpStatus: 200,
     probability,
     prediction,
     threshold,
     modelVersion: data?.model_version ?? null,
-    detail: probability === null && prediction === null ? 'Response contained no score' : null,
+    detail: hasResult ? null : 'Response contained no score',
+    modelScore,
   }
 }
 
@@ -230,8 +239,9 @@ function normalizePrediction(data) {
 export async function predict(session) {
   const payload = buildPredictPayload(session)
   try {
+    // The API requires a single `features` envelope; mock consumers still receive the flat 20-feature object.
     const data = await route(
-      () => request('/api/predict', { method: 'POST', body: payload }),
+      () => request('/api/predict', { method: 'POST', body: { features: payload } }),
       () => mock.predict(payload),
     )
     return normalizePrediction(data)
