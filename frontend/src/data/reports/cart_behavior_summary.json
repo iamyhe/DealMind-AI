@@ -1,0 +1,842 @@
+{
+  "meta": {
+    "source_file": "intent_train.parquet",
+    "split": "train",
+    "n_sessions": 590754,
+    "n_users": 264008,
+    "period_start": "2019-10-02 00:00:03+00:00",
+    "period_end": "2019-12-31 23:54:22+00:00",
+    "target_column": "target_purchased_after_cart",
+    "overall_purchase_rate": 0.1257,
+    "n_buyers": 74260,
+    "n_non_buyers": 516494,
+    "notes": [
+      "Descriptive analysis only; train split only.",
+      "avg_viewed_price/max_viewed_price/price_ratio are NaN when there was no view before cart (structural).",
+      "No brand name column exists; brand analysis is presence-based.",
+      "Category/product ids are raw ids (no names in the data)."
+    ]
+  },
+  "pre_cart_behavior": {
+    "numeric_comparison": [
+      {
+        "feature": "seconds_to_first_cart",
+        "buyer_mean": 2735.6548,
+        "non_buyer_mean": 1828.8358,
+        "buyer_median": 25.0,
+        "non_buyer_median": 13.0
+      },
+      {
+        "feature": "views_before_cart",
+        "buyer_mean": 1.3834,
+        "non_buyer_mean": 1.206,
+        "buyer_median": 1.0,
+        "non_buyer_median": 1.0
+      },
+      {
+        "feature": "unique_products_viewed_before_cart",
+        "buyer_mean": 1.1862,
+        "non_buyer_mean": 1.0823,
+        "buyer_median": 1.0,
+        "non_buyer_median": 1.0
+      },
+      {
+        "feature": "unique_categories_viewed_before_cart",
+        "buyer_mean": 0.785,
+        "non_buyer_mean": 0.7856,
+        "buyer_median": 1.0,
+        "non_buyer_median": 1.0
+      },
+      {
+        "feature": "unique_brands_viewed_before_cart",
+        "buyer_mean": 0.5057,
+        "non_buyer_mean": 0.492,
+        "buyer_median": 0.0,
+        "non_buyer_median": 0.0
+      },
+      {
+        "feature": "removes_before_cart",
+        "buyer_mean": 0.9364,
+        "non_buyer_mean": 0.6614,
+        "buyer_median": 0.0,
+        "non_buyer_median": 0.0
+      },
+      {
+        "feature": "unique_products_removed_before_cart",
+        "buyer_mean": 0.6277,
+        "non_buyer_mean": 0.4344,
+        "buyer_median": 0.0,
+        "non_buyer_median": 0.0
+      },
+      {
+        "feature": "cart_events_at_first_cart_sec",
+        "buyer_mean": 1.0177,
+        "non_buyer_mean": 1.0094,
+        "buyer_median": 1.0,
+        "non_buyer_median": 1.0
+      },
+      {
+        "feature": "avg_cart_price_at_first_cart_sec",
+        "buyer_mean": 9.2922,
+        "non_buyer_mean": 7.805,
+        "buyer_median": 4.97,
+        "non_buyer_median": 4.44
+      },
+      {
+        "feature": "avg_viewed_price_before_cart",
+        "buyer_mean": 12.0142,
+        "non_buyer_mean": 9.6146,
+        "buyer_median": 5.71,
+        "non_buyer_median": 4.86
+      },
+      {
+        "feature": "price_ratio_cart_to_view",
+        "buyer_mean": 1.108,
+        "non_buyer_mean": 1.0732,
+        "buyer_median": 1.0,
+        "non_buyer_median": 1.0
+      },
+      {
+        "feature": "user_prior_sessions",
+        "buyer_mean": 8.2376,
+        "non_buyer_mean": 15.1268,
+        "buyer_median": 2.0,
+        "non_buyer_median": 2.0
+      },
+      {
+        "feature": "user_prior_purchase_sessions",
+        "buyer_mean": 0.5378,
+        "non_buyer_mean": 0.3327,
+        "buyer_median": 0.0,
+        "non_buyer_median": 0.0
+      }
+    ],
+    "flag_comparison": [
+      {
+        "feature": "has_view_before_cart",
+        "buyer_share": 0.5682,
+        "non_buyer_share": 0.6118
+      },
+      {
+        "feature": "has_multi_products_at_first_cart_sec",
+        "buyer_share": 0.001,
+        "non_buyer_share": 0.0012
+      },
+      {
+        "feature": "any_cart_brand_at_first_cart_sec",
+        "buyer_share": 0.5975,
+        "non_buyer_share": 0.5886
+      }
+    ],
+    "purchase_rate_by_has_view": [
+      {
+        "bucket": "no view",
+        "sessions": 232583,
+        "purchase_rate": 0.1379
+      },
+      {
+        "bucket": "has view",
+        "sessions": 358171,
+        "purchase_rate": 0.1178
+      }
+    ],
+    "purchase_rate_by_seconds_to_first_cart": [
+      {
+        "bucket": "0s",
+        "sessions": 211460,
+        "purchase_rate": 0.1321
+      },
+      {
+        "bucket": "1-10s",
+        "sessions": 64102,
+        "purchase_rate": 0.0714
+      },
+      {
+        "bucket": "11-60s",
+        "sessions": 104223,
+        "purchase_rate": 0.1165
+      },
+      {
+        "bucket": "1-5m",
+        "sessions": 123428,
+        "purchase_rate": 0.1376
+      },
+      {
+        "bucket": "5-30m",
+        "sessions": 68431,
+        "purchase_rate": 0.1429
+      },
+      {
+        "bucket": "30-60m",
+        "sessions": 8047,
+        "purchase_rate": 0.154
+      },
+      {
+        "bucket": "1-24h",
+        "sessions": 9163,
+        "purchase_rate": 0.1443
+      },
+      {
+        "bucket": ">24h",
+        "sessions": 1900,
+        "purchase_rate": 0.1542
+      }
+    ],
+    "purchase_rate_by_views_before_cart": [
+      {
+        "bucket": "0",
+        "sessions": 232583,
+        "purchase_rate": 0.1379
+      },
+      {
+        "bucket": "1",
+        "sessions": 242577,
+        "purchase_rate": 0.1
+      },
+      {
+        "bucket": "2",
+        "sessions": 50492,
+        "purchase_rate": 0.1492
+      },
+      {
+        "bucket": "3-4",
+        "sessions": 35594,
+        "purchase_rate": 0.1551
+      },
+      {
+        "bucket": "5-9",
+        "sessions": 21572,
+        "purchase_rate": 0.1609
+      },
+      {
+        "bucket": "10+",
+        "sessions": 7936,
+        "purchase_rate": 0.1778
+      }
+    ],
+    "purchase_rate_by_removes_before_cart": [
+      {
+        "bucket": "0",
+        "sessions": 535369,
+        "purchase_rate": 0.1187
+      },
+      {
+        "bucket": "1",
+        "sessions": 10965,
+        "purchase_rate": 0.2215
+      },
+      {
+        "bucket": "2-3",
+        "sessions": 17283,
+        "purchase_rate": 0.1984
+      },
+      {
+        "bucket": "4+",
+        "sessions": 27137,
+        "purchase_rate": 0.1782
+      }
+    ],
+    "purchase_rate_by_prior_purchase_sessions": [
+      {
+        "bucket": "0",
+        "sessions": 477623,
+        "purchase_rate": 0.1189
+      },
+      {
+        "bucket": "1",
+        "sessions": 70773,
+        "purchase_rate": 0.1477
+      },
+      {
+        "bucket": "2-3",
+        "sessions": 32468,
+        "purchase_rate": 0.1534
+      },
+      {
+        "bucket": "4+",
+        "sessions": 9890,
+        "purchase_rate": 0.2058
+      }
+    ],
+    "purchase_rate_by_multi_product_cart": [
+      {
+        "bucket": "single product",
+        "sessions": 590067,
+        "purchase_rate": 0.1257
+      },
+      {
+        "bucket": "multi products",
+        "sessions": 687,
+        "purchase_rate": 0.1063
+      }
+    ],
+    "purchase_rate_by_hour_utc": [
+      {
+        "hour": 0,
+        "sessions": 6800,
+        "purchase_rate": 0.0716
+      },
+      {
+        "hour": 1,
+        "sessions": 6276,
+        "purchase_rate": 0.0728
+      },
+      {
+        "hour": 2,
+        "sessions": 7192,
+        "purchase_rate": 0.0798
+      },
+      {
+        "hour": 3,
+        "sessions": 9419,
+        "purchase_rate": 0.0887
+      },
+      {
+        "hour": 4,
+        "sessions": 12812,
+        "purchase_rate": 0.104
+      },
+      {
+        "hour": 5,
+        "sessions": 19046,
+        "purchase_rate": 0.1206
+      },
+      {
+        "hour": 6,
+        "sessions": 24824,
+        "purchase_rate": 0.1398
+      },
+      {
+        "hour": 7,
+        "sessions": 30115,
+        "purchase_rate": 0.1413
+      },
+      {
+        "hour": 8,
+        "sessions": 32886,
+        "purchase_rate": 0.1384
+      },
+      {
+        "hour": 9,
+        "sessions": 34535,
+        "purchase_rate": 0.1413
+      },
+      {
+        "hour": 10,
+        "sessions": 36127,
+        "purchase_rate": 0.1385
+      },
+      {
+        "hour": 11,
+        "sessions": 35712,
+        "purchase_rate": 0.1393
+      },
+      {
+        "hour": 12,
+        "sessions": 36100,
+        "purchase_rate": 0.1339
+      },
+      {
+        "hour": 13,
+        "sessions": 32914,
+        "purchase_rate": 0.1349
+      },
+      {
+        "hour": 14,
+        "sessions": 30315,
+        "purchase_rate": 0.1314
+      },
+      {
+        "hour": 15,
+        "sessions": 29263,
+        "purchase_rate": 0.1291
+      },
+      {
+        "hour": 16,
+        "sessions": 30204,
+        "purchase_rate": 0.1256
+      },
+      {
+        "hour": 17,
+        "sessions": 32761,
+        "purchase_rate": 0.1227
+      },
+      {
+        "hour": 18,
+        "sessions": 35171,
+        "purchase_rate": 0.1236
+      },
+      {
+        "hour": 19,
+        "sessions": 35986,
+        "purchase_rate": 0.1178
+      },
+      {
+        "hour": 20,
+        "sessions": 31107,
+        "purchase_rate": 0.1186
+      },
+      {
+        "hour": 21,
+        "sessions": 20541,
+        "purchase_rate": 0.1044
+      },
+      {
+        "hour": 22,
+        "sessions": 12819,
+        "purchase_rate": 0.0956
+      },
+      {
+        "hour": 23,
+        "sessions": 7829,
+        "purchase_rate": 0.0834
+      }
+    ],
+    "purchase_rate_by_weekday_utc": [
+      {
+        "weekday": "Sun",
+        "sessions": 86833,
+        "purchase_rate": 0.111
+      },
+      {
+        "weekday": "Mon",
+        "sessions": 89342,
+        "purchase_rate": 0.1187
+      },
+      {
+        "weekday": "Tue",
+        "sessions": 78728,
+        "purchase_rate": 0.1288
+      },
+      {
+        "weekday": "Wed",
+        "sessions": 98304,
+        "purchase_rate": 0.1121
+      },
+      {
+        "weekday": "Thu",
+        "sessions": 87135,
+        "purchase_rate": 0.1414
+      },
+      {
+        "weekday": "Fri",
+        "sessions": 81084,
+        "purchase_rate": 0.1435
+      },
+      {
+        "weekday": "Sat",
+        "sessions": 69328,
+        "purchase_rate": 0.1283
+      }
+    ]
+  },
+  "catalog_and_brands": {
+    "n_categories": 463,
+    "n_products": 38101,
+    "top10_categories_share_of_sessions": 0.2966,
+    "top50_products_share_of_sessions": 0.1007,
+    "min_sessions_for_rate_ranking": 500,
+    "top_categories_by_volume": [
+      {
+        "category_id": "1487580005092295511",
+        "sessions": 28094,
+        "share": 0.0476,
+        "purchase_rate": 0.1363
+      },
+      {
+        "category_id": "1487580007675986893",
+        "sessions": 21887,
+        "share": 0.037,
+        "purchase_rate": 0.0823
+      },
+      {
+        "category_id": "1487580006317032337",
+        "sessions": 20455,
+        "share": 0.0346,
+        "purchase_rate": 0.123
+      },
+      {
+        "category_id": "1602943681873052386",
+        "sessions": 19586,
+        "share": 0.0332,
+        "purchase_rate": 0.1175
+      },
+      {
+        "category_id": "1487580005595612013",
+        "sessions": 16564,
+        "share": 0.028,
+        "purchase_rate": 0.0878
+      },
+      {
+        "category_id": "1487580008246412266",
+        "sessions": 15650,
+        "share": 0.0265,
+        "purchase_rate": 0.1601
+      },
+      {
+        "category_id": "1487580005671109489",
+        "sessions": 15226,
+        "share": 0.0258,
+        "purchase_rate": 0.1007
+      },
+      {
+        "category_id": "1487580005268456287",
+        "sessions": 14690,
+        "share": 0.0249,
+        "purchase_rate": 0.1309
+      },
+      {
+        "category_id": "1487580013841613016",
+        "sessions": 13345,
+        "share": 0.0226,
+        "purchase_rate": 0.1413
+      },
+      {
+        "category_id": "1487580005754995573",
+        "sessions": 9711,
+        "share": 0.0164,
+        "purchase_rate": 0.0946
+      },
+      {
+        "category_id": "1487580009286598681",
+        "sessions": 8352,
+        "share": 0.0141,
+        "purchase_rate": 0.1604
+      },
+      {
+        "category_id": "1487580009445982239",
+        "sessions": 7459,
+        "share": 0.0126,
+        "purchase_rate": 0.1335
+      },
+      {
+        "category_id": "1487580008145748965",
+        "sessions": 7246,
+        "share": 0.0123,
+        "purchase_rate": 0.1054
+      },
+      {
+        "category_id": "1487580006300255120",
+        "sessions": 6871,
+        "share": 0.0116,
+        "purchase_rate": 0.1473
+      },
+      {
+        "category_id": "1487580008263189483",
+        "sessions": 6837,
+        "share": 0.0116,
+        "purchase_rate": 0.1485
+      }
+    ],
+    "highest_purchase_rate_categories": [
+      {
+        "category_id": "1487580009177546772",
+        "sessions": 928,
+        "purchase_rate": 0.2414
+      },
+      {
+        "category_id": "1487580013053083824",
+        "sessions": 1946,
+        "purchase_rate": 0.2307
+      },
+      {
+        "category_id": "1487580012902088873",
+        "sessions": 2503,
+        "purchase_rate": 0.2217
+      },
+      {
+        "category_id": "1487580009202712597",
+        "sessions": 1073,
+        "purchase_rate": 0.2209
+      },
+      {
+        "category_id": "1487580013539623112",
+        "sessions": 1950,
+        "purchase_rate": 0.2138
+      },
+      {
+        "category_id": "1487580013069861041",
+        "sessions": 3407,
+        "purchase_rate": 0.2137
+      },
+      {
+        "category_id": "1487580014009385185",
+        "sessions": 896,
+        "purchase_rate": 0.2109
+      },
+      {
+        "category_id": "1487580008447738866",
+        "sessions": 1786,
+        "purchase_rate": 0.2055
+      },
+      {
+        "category_id": "1487580012121948301",
+        "sessions": 533,
+        "purchase_rate": 0.1951
+      },
+      {
+        "category_id": "1487580006409307030",
+        "sessions": 861,
+        "purchase_rate": 0.187
+      }
+    ],
+    "lowest_purchase_rate_categories": [
+      {
+        "category_id": "1871018959927509750",
+        "sessions": 525,
+        "purchase_rate": 0.0305
+      },
+      {
+        "category_id": "1487580005385896804",
+        "sessions": 534,
+        "purchase_rate": 0.0356
+      },
+      {
+        "category_id": "2069804417665728971",
+        "sessions": 774,
+        "purchase_rate": 0.0401
+      },
+      {
+        "category_id": "2114584564549550293",
+        "sessions": 627,
+        "purchase_rate": 0.051
+      },
+      {
+        "category_id": "1526733091857498510",
+        "sessions": 540,
+        "purchase_rate": 0.0519
+      },
+      {
+        "category_id": "1487580008607122425",
+        "sessions": 1041,
+        "purchase_rate": 0.0567
+      },
+      {
+        "category_id": "1525995662934540829",
+        "sessions": 1116,
+        "purchase_rate": 0.0573
+      },
+      {
+        "category_id": "1487580005528503146",
+        "sessions": 1000,
+        "purchase_rate": 0.058
+      },
+      {
+        "category_id": "1921723491720102387",
+        "sessions": 557,
+        "purchase_rate": 0.0592
+      },
+      {
+        "category_id": "1937169073007756269",
+        "sessions": 768,
+        "purchase_rate": 0.0599
+      }
+    ],
+    "top_products_by_volume": [
+      {
+        "product_id": "5809910",
+        "sessions": 8334,
+        "share": 0.0141,
+        "purchase_rate": 0.137
+      },
+      {
+        "product_id": "5751383",
+        "sessions": 2565,
+        "share": 0.0043,
+        "purchase_rate": 0.1493
+      },
+      {
+        "product_id": "5815662",
+        "sessions": 2388,
+        "share": 0.004,
+        "purchase_rate": 0.0934
+      },
+      {
+        "product_id": "5809912",
+        "sessions": 2364,
+        "share": 0.004,
+        "purchase_rate": 0.1151
+      },
+      {
+        "product_id": "5849033",
+        "sessions": 2280,
+        "share": 0.0039,
+        "purchase_rate": 0.1518
+      },
+      {
+        "product_id": "5854897",
+        "sessions": 2125,
+        "share": 0.0036,
+        "purchase_rate": 0.1318
+      },
+      {
+        "product_id": "5751422",
+        "sessions": 2003,
+        "share": 0.0034,
+        "purchase_rate": 0.1503
+      },
+      {
+        "product_id": "5792800",
+        "sessions": 1687,
+        "share": 0.0029,
+        "purchase_rate": 0.1269
+      },
+      {
+        "product_id": "5700037",
+        "sessions": 1578,
+        "share": 0.0027,
+        "purchase_rate": 0.1496
+      },
+      {
+        "product_id": "5528035",
+        "sessions": 1527,
+        "share": 0.0026,
+        "purchase_rate": 0.2056
+      },
+      {
+        "product_id": "5304",
+        "sessions": 1455,
+        "share": 0.0025,
+        "purchase_rate": 0.099
+      },
+      {
+        "product_id": "5833330",
+        "sessions": 1392,
+        "share": 0.0024,
+        "purchase_rate": 0.1193
+      },
+      {
+        "product_id": "5802432",
+        "sessions": 1317,
+        "share": 0.0022,
+        "purchase_rate": 0.1648
+      },
+      {
+        "product_id": "5877454",
+        "sessions": 1267,
+        "share": 0.0021,
+        "purchase_rate": 0.165
+      },
+      {
+        "product_id": "5809911",
+        "sessions": 1221,
+        "share": 0.0021,
+        "purchase_rate": 0.0942
+      }
+    ],
+    "brand_presence": {
+      "cart_item_has_brand": [
+        {
+          "bucket": "no brand",
+          "sessions": 242364,
+          "purchase_rate": 0.1233
+        },
+        {
+          "bucket": "branded",
+          "sessions": 348390,
+          "purchase_rate": 0.1274
+        }
+      ],
+      "distinct_brands_viewed_before_cart": [
+        {
+          "bucket": "0",
+          "sessions": 357992,
+          "purchase_rate": 0.1278
+        },
+        {
+          "bucket": "1",
+          "sessions": 195790,
+          "purchase_rate": 0.1168
+        },
+        {
+          "bucket": "2",
+          "sessions": 24505,
+          "purchase_rate": 0.1503
+        },
+        {
+          "bucket": "3+",
+          "sessions": 12467,
+          "purchase_rate": 0.1561
+        }
+      ]
+    }
+  },
+  "price_band_cart_behavior": {
+    "price_column": "avg_cart_price_at_first_cart_sec",
+    "band_method": "terciles of avg cart price (equal-size bands)",
+    "thresholds": {
+      "low_max": 2.94,
+      "mid_max": 5.95
+    },
+    "bands": [
+      {
+        "band": "Low",
+        "sessions": 196790,
+        "purchase_rate": 0.1123,
+        "price_min": 0.05,
+        "price_median": 1.59,
+        "price_max": 2.94,
+        "median_seconds_to_first_cart": 13.0,
+        "mean_views_before_cart": 1.1819,
+        "mean_removes_before_cart": 0.8351,
+        "share_has_view": 0.5729,
+        "share_multi_product_cart": 0.0016,
+        "share_branded": 0.6062,
+        "median_prior_sessions": 3.0,
+        "mean_prior_purchase_sessions": 0.3643
+      },
+      {
+        "band": "Mid",
+        "sessions": 196630,
+        "purchase_rate": 0.1125,
+        "price_min": 2.95,
+        "price_median": 4.44,
+        "price_max": 5.95,
+        "median_seconds_to_first_cart": 14.0,
+        "mean_views_before_cart": 1.2528,
+        "mean_removes_before_cart": 0.7004,
+        "share_has_view": 0.6162,
+        "share_multi_product_cart": 0.0011,
+        "share_branded": 0.5729,
+        "median_prior_sessions": 2.0,
+        "mean_prior_purchase_sessions": 0.3667
+      },
+      {
+        "band": "High",
+        "sessions": 196589,
+        "purchase_rate": 0.1525,
+        "price_min": 5.97,
+        "price_median": 10.32,
+        "price_max": 327.78,
+        "median_seconds_to_first_cart": 16.0,
+        "mean_views_before_cart": 1.2513,
+        "mean_removes_before_cart": 0.5521,
+        "share_has_view": 0.6305,
+        "share_multi_product_cart": 0.0008,
+        "share_branded": 0.5923,
+        "median_prior_sessions": 1.0,
+        "mean_prior_purchase_sessions": 0.3416
+      }
+    ],
+    "cart_vs_viewed_price": [
+      {
+        "move": "cheaper than viewed",
+        "sessions": 75687,
+        "share": 0.2116,
+        "purchase_rate": 0.1413
+      },
+      {
+        "move": "same",
+        "sessions": 236094,
+        "share": 0.6601,
+        "purchase_rate": 0.1034
+      },
+      {
+        "move": "pricier than viewed",
+        "sessions": 45894,
+        "share": 0.1283,
+        "purchase_rate": 0.1537
+      }
+    ]
+  }
+}

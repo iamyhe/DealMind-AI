@@ -1,0 +1,68 @@
+{
+  "cleaning_and_feature_rules": [
+    "Dropped rows with null/empty user_session and excluded 272 multi-user session IDs",
+    "Retained all valid-session events regardless of price for behavioral funnel and purchase target",
+    "Applied price > 0 strictly to price-based features, purchase baskets (recommendations), and RFM (recorded spend on positive-price purchase rows)",
+    "Kept negative-price purchase records separate in funnel summary (signed vs positive-only totals/AOV) without assuming their business cause",
+    "Computed pre-cart features strictly on event_time < first_cart_time; cart snapshot strictly on event_time = first_cart_time",
+    "Excluded boundary sessions (2019-10-01, 2020-02-29, cross-split) and 8 same-second purchase sessions",
+    "All timestamps and date aggregations executed in UTC"
+  ],
+  "overall_funnel_all_valid_sessions": {
+    "total_valid_sessions": 4535669,
+    "sessions_with_view": 4280436,
+    "sessions_with_cart": 985698,
+    "sessions_with_purchase": 155595,
+    "sessions_with_view_and_purchase": 116391,
+    "sessions_with_purchase_without_view": 39204,
+    "sessions_with_cart_without_purchase": 859430,
+    "overall_purchase_rate_pct": 3.43,
+    "view_to_purchase_rate_pct": 2.72,
+    "session_cart_abandonment_rate_pct": 87.19,
+    "total_recorded_purchase_signed": 6347480.24,
+    "historical_aov_signed_units": 40.79,
+    "total_recorded_purchase_pos_only": 6351305.66,
+    "historical_aov_pos_only_units": 40.82
+  },
+  "rfm_reference_date_utc": "2020-03-01 00:00:00+00",
+  "intent_datasets": {
+    "train": {
+      "rows": 590754,
+      "positives": 74260,
+      "positive_rate_pct": 12.57
+    },
+    "val": {
+      "rows": 192366,
+      "positives": 25240,
+      "positive_rate_pct": 13.12
+    },
+    "test": {
+      "rows": 179226,
+      "positives": 22211,
+      "positive_rate_pct": 12.39
+    }
+  },
+  "basket_datasets": {
+    "train": {
+      "purchase_sessions": 91971,
+      "unique_session_product_pairs": 746047
+    },
+    "val": {
+      "purchase_sessions": 31447,
+      "unique_session_product_pairs": 250956
+    },
+    "test": {
+      "purchase_sessions": 27983,
+      "unique_session_product_pairs": 225268
+    }
+  },
+  "rfm_unique_buyers_pos_price": 110500,
+  "sqlite_database": {
+    "path": "data/dealmind.db",
+    "size_mb": 7.2,
+    "products_count": 54565,
+    "funnel_periods": 6,
+    "curated_test_replay_sessions": 100,
+    "replay_events_count": 2394
+  }
+}
